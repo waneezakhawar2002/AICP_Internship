@@ -4,7 +4,6 @@ import plotly.express as px
 from sklearn.ensemble import IsolationForest
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-from sklearn.utils import resample
 from sklearn.metrics import classification_report
 
 """ Question # 01 """
@@ -66,7 +65,6 @@ print(f"Anomaly Ratio: {anomalies_ratio}")
 print("\nQuestion # 09\n")
 features = ["Transaction_Amount", "Average_Transaction_Amount", "Frequency_of_Transactions"]
 X = df[features]
-print(X)
 y = []
 for i in range (0,len(df[['Is_Anomaly']])):
     if  df["Is_Anomaly"].iloc[i]:
@@ -79,11 +77,12 @@ model = IsolationForest(contamination=anomalies_ratio)  # Contamination paramete
 model.fit(X_train,y_test)
 y_pred = model.predict(X_test)
 y_pred[y_pred == -1] = 0
-print(y_test)
+print("Confusion Matrix:")
 print(confusion_matrix(y_pred, y_test))
 
 """ Question # 10 """
 print("\nQuestion # 10\n")
+print("Classification Report:")
 print(classification_report(y_pred, y_test))
 
 """ Question # 11"""
